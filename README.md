@@ -22,7 +22,7 @@ We fit CNN models on the 3D MRI scans, XGBoost, and Random Forest models on the 
 
 The imaging data was around ~ 240GB, and the model took 2-3 hours to train per epoch. The solution was to load the images onto RAM and use PyTrotchs distributed multi GPU training, which sped up execution by approximately 90%
 
-Since the data size was large, we had memory constraints. To overcome this we decided to convert each pixel value from float32 to float16 and cropped out the borders of the image, reducing the size of the image by 70% 
+Since the data size was large, we had memory constraints. To overcome this we decided to convert each pixel value from float32 to float16 and cropped out the borders of the image, reducing the size of the image by 70% facilatating the loading of the images onto RAM
 
 ### Results
 
