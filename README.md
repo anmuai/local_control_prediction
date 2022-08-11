@@ -18,17 +18,21 @@ We worked on this project during our internship at the University of California,
 
 ## Methodology
 
-We fit CNN models on the 3D MRI scans, XGBoost, and Random Forest models on the tabular data
+We fit CNN models on the 3D MRI scans, XGBoost, and Random Forest models on the tabular data.
 
-### Image Models
+The imaging data was around ~ 240GB, and the model took 2-3 hours to train per epoch. The solution was to load the images onto RAM and use PyTrotchs distributed multi GPU training, which sped up execution by approximately 90%
+
+Since the data size was large, we had memory constraints. To overcome this we decided to convert each pixel value from float32 to float16 and cropped out the borders of the image, reducing the size of the image by 70% 
+
+### Results
+
+#### Image Models
 We tried different architectures of Convolutional Neural Network model such as UNet, ResNet 50. 
 | Architecture|Best Accuracy|Best Area under ROC|
 |:-----------|:------------:|:--------:|
-|[UNet+Linear](UNet_Linear.ipynb)|0.9125|0.5992|
-|[Half_UNet+Linear](Half_UNet_Linear_balancing.ipynb)|0.5073|0.5568|
 |[ResNet50]()|0.8412|0.8359|
 
-### Models for tabular data
+#### Models for tabular data
 Since both clinical and radiomics data are tabular, it would be easier for us to model them together. We used gradient boosting model from sci-kit learn, xgboost, and random forest models.
 
 #### Clinical Data
@@ -53,12 +57,6 @@ Since both clinical and radiomics data are tabular, it would be easier for us to
 |[Random Forest]()|0.692|0.683|
 
 
-#### Notebooks
-|Data|Model|
-|:---|----:|
-|[Clinical](Gradient_Boosting_clinical&radiomic.ipynb)|Gradient Boosting|
-|[Radiomics](Gradient_Boosting_clinical&radiomic.ipynb)|Gradient Boosting|
-|[Clinical+Radiomics](Gradient_Boosting_clinical&radiomic.ipynb)|Gradient Boosting|
 
 ### Conclusion
 
